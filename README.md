@@ -1,46 +1,7 @@
 # Improving Semantic Segmentation via Video Prediction and Label Relaxation
-### [Project](https://nv-adlr.github.io/publication/2018-Segmentation) | [Paper](https://arxiv.org/pdf/1812.01593.pdf) | [YouTube](https://www.youtube.com/watch?v=aEbXjGZDZSQ)  | [Cityscapes Score](https://www.cityscapes-dataset.com/anonymous-results/?id=555fc2b66c6e00b953c72b98b100e396c37274e0788e871a85f1b7b4f4fa130e) | [Kitti Score](http://www.cvlibs.net/datasets/kitti/eval_semseg_detail.php?benchmark=semantics2015&result=83cac7efbd41b1f2fc095f9bc1168bc548b48885) <br>
-PyTorch implementation of our CVPR2019 paper (oral) on achieving state-of-the-art semantic segmentation results using Deeplabv3-Plus like architecture with a WideResNet38 trunk. We present a video prediction-based methodology to scale up training sets by synthesizing new training samples and propose a novel label relaxation technique to make training objectives robust to label noise. <br>
 
-[Improving Semantic Segmentation via Video Propagation and Label Relaxation](https://nv-adlr.github.io/publication/2018-Segmentation) <br />
-Yi Zhu<sup>1*</sup>, Karan Sapra<sup>2*</sup>, [Fitsum A. Reda](https://scholar.google.com/citations?user=quZ_qLYAAAAJ&hl=en)<sup>2</sup>, Kevin J. Shih<sup>2</sup>, Shawn Newsam<sup>1</sup>, Andrew Tao<sup>2</sup>, [Bryan Catanzaro](http://catanzaro.name/)<sup>2</sup>  
-<sup>1</sup>UC Merced, <sup>2</sup>NVIDIA Corporation  <br />
-In CVPR 2019 (* equal contributions).
 
-[SDCNet: Video Prediction using Spatially Displaced Convolution](https://nv-adlr.github.io/publication/2018-SDCNet)  
-[Fitsum A. Reda](https://scholar.google.com/citations?user=quZ_qLYAAAAJ&hl=en), Guilin Liu, Kevin J. Shih, Robert Kirby, Jon Barker, David Tarjan, Andrew Tao, [Bryan Catanzaro](http://catanzaro.name/)<br />
-NVIDIA Corporation <br />
-In ECCV 2018. 
 
-![alt text](images/method.png)
-
-## Installation 
-
-    # Get Semantic Segmentation source code
-    git clone --recursive https://github.com/NVIDIA/semantic-segmentation.git
-    cd semantic-segmentation
-
-    # Build Docker Image
-    docker build -t nvidia-segmgentation -f Dockerfile .
-
-If you prefer not to use docker, you can manually install the following requirements: 
-
-* An NVIDIA GPU and CUDA 9.0 or higher. Some operations only have gpu implementation.
-* PyTorch (>= 0.5.1)
-* Python 3
-* numpy
-* sklearn
-* h5py
-* scikit-image
-* pillow
-* piexif
-* cffi
-* tqdm
-* dominate
-* tensorboardX
-* opencv-python
-* nose
-* ninja
 
 
 Multiple GPU training and mixed precision training are supported, and the code provides examples for training and inference. For more help, type <br/>
@@ -92,14 +53,6 @@ Note that, in this section, we use the standard train/val split in Cityscapes to
 
 If you have less than 8 GPUs in your machine, please change `--nproc_per_node=8` to the number of GPUs you have in all the .sh files under folder `scripts`.
 
-### Pre-Training on Mapillary 
-First, you can pre-train a DeepLabV3+ model with `SEResNeXt50` trunk on Mapillary dataset. Set `__C.DATASET.MAPILLARY_DIR` in `config.py` to where you store the Mapillary data. 
-
-```
-./scripts/train_mapillary_SEResNeXt50.sh
-```
-
-When you first run training on a new dataset with flag `--class_uniform_pct` on, it will take some time to preprocess the dataset. Depending on your machine, the preprocessing can take half an hour or more. Once it finishes, you will have a json file in your root folder, e.g., `mapillary_tile1024.json`. You can read more details about `class uniform sampling` in our paper, the idea is to make sure that all classes are approximately uniformly chosen during training.
 
 ### Fine-tuning on Cityscapes 
 Once you have the Mapillary pre-trained model (training mIoU should be 50+), you can start fine-tuning the model on Cityscapes dataset. Set `__C.DATASET.CITYSCAPES_DIR` in `config.py` to where you store the Cityscapes data. Your training mIoU in the end should be 80+. 
@@ -123,10 +76,6 @@ Right now, our inference code only supports Cityscapes dataset.
 
 Note that, in this section, we use an alternative train/val split in Cityscapes to train our model, which is `cv 2`. You can find the difference between `cv 0` and `cv 2` in the supplementary material section in our arXiv paper. 
 
-### Pre-Training on Mapillary 
-```
-./scripts/train_mapillary_WideResNet38.sh
-```
 
 ### Fine-tuning on Cityscapes 
 ```
@@ -147,27 +96,6 @@ Now you can zip the `pred` folder and upload to Cityscapes leaderboard. For the 
 
 At this point, you can already achieve top performance on Cityscapes benchmark (83+ mIoU). In order to further boost the segmentation performance, we can use the augmented dataset to help model's generalization capibility. 
 
-### Label Propagation using Video Prediction 
-First, you need to donwload the Cityscapes sequence dataset. Note that the sequence dataset is very large (a 325GB .zip file). Then we can use video prediction model to propagate GT segmentation masks to adjacent video frames, so that we can have more annotated image-label pairs during training. 
-
-```
-cd ./sdcnet
-
-bash flownet2_pytorch/install.sh
-
-./_aug.sh
-```
-
-By default, we predict five past frames and five future frames, which effectively enlarge the dataset 10 times. If you prefer to propagate less or more time steps, you can change the `--propagate` accordingly. Enjoy the augmented dataset. 
-
-
-## Results on Cityscapes
-
-![alt text](images/vis.png)
-
-## Training IOU using fp16
-
-Training results for WideResNet38 and SEResNeXt50 trained in fp16 on DGX-1 (8-GPU V100). fp16 can significantly speed up experiments without losing much accuracy. 
 
 <table class="tg">
   <tr>
