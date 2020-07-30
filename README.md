@@ -49,19 +49,12 @@ Multiple GPU training and mixed precision training are supported, and the code p
 
 
 
-## Network architectures
-
-Our repo now supports DeepLabV3+ architecture with different backbones, including `WideResNet38`, `SEResNeXt(50, 101)` and `ResNet(50,101)`. 
-
   
 ## Pre-trained models
-We've included pre-trained models. Download checkpoints to a folder `pretrained_models`. 
+Download checkpoints to a folder `pretrained_models`. 
 
 * [pretrained_models/cityscapes_best.pth](https://drive.google.com/file/d/1P4kPaMY-SmQ3yPJQTJ7xMGAB_Su-1zTl/view?usp=sharing)[1071MB, WideResNet38 backbone]
-* [pretrained_models/camvid_best.pth](https://drive.google.com/file/d/1OzUCbFdXulB2P80Qxm7C3iNTeTP0Mvb_/view?usp=sharing)[1071MB, WideResNet38 backbone]
-* [pretrained_models/kitti_best.pth](https://drive.google.com/file/d/1OrTcqH_I3PHFiMlTTZJgBy8l_pladwtg/view?usp=sharing)[1071MB, WideResNet38 backbone]
-* [pretrained_models/sdc_cityscapes_vrec.pth.tar](https://drive.google.com/file/d/1OxnJo2tFEQs3vuY01ibPFjn3cRCo2yWt/view?usp=sharing)[38MB]
-* [pretrained_models/FlowNet2_checkpoint.pth.tar](https://drive.google.com/file/d/1hF8vS6YeHkx3j2pfCeQqqZGwA_PJq_Da/view?usp=sharing)[620MB]
+
 
 ImageNet Weights
 * [pretrained_models/wider_resnet38.pth.tar](https://drive.google.com/file/d/1OfKQPQXbXGbWAQJj2R82x6qyz6f-1U6t/view?usp=sharing)[833MB]
@@ -195,40 +188,4 @@ Training results for WideResNet38 and SEResNeXt50 trained in fp16 on DGX-1 (8-GP
 </table>
 
 
-## Reference 
 
-If you find this implementation useful in your work, please acknowledge it appropriately and cite the paper or code accordingly:
-
-```
-@inproceedings{semantic_cvpr19,
-  author       = {Yi Zhu*, Karan Sapra*, Fitsum A. Reda, Kevin J. Shih, Shawn Newsam, Andrew Tao, Bryan Catanzaro},
-  title        = {Improving Semantic Segmentation via Video Propagation and Label Relaxation},
-  booktitle    = {IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
-  month        = {June},
-  year         = {2019},
-  url          = {https://nv-adlr.github.io/publication/2018-Segmentation}
-}
-* indicates equal contribution
-
-@inproceedings{reda2018sdc,
-  title={SDC-Net: Video prediction using spatially-displaced convolution},
-  author={Reda, Fitsum A and Liu, Guilin and Shih, Kevin J and Kirby, Robert and Barker, Jon and Tarjan, David and Tao, Andrew and Catanzaro, Bryan},
-  booktitle={Proceedings of the European Conference on Computer Vision (ECCV)},
-  pages={718--733},
-  year={2018}
-}
-```
-We encourage people to contribute to our code base and provide suggestions, point any issues, or solution using merge request, and we hope this repo is useful.  
-
-## Acknowledgments
-
-Parts of the code were heavily derived from [pytorch-semantic-segmentation](https://github.com/ZijunDeng/pytorch-semantic-segmentation), [inplace-abn](https://github.com/mapillary/inplace_abn), [Pytorch](https://github.com/pytorch/vision/blob/master/torchvision/models/resnet.py), [ClementPinard/FlowNetPytorch](https://github.com/ClementPinard/FlowNetPytorch), [NVIDIA/flownet2-pytorch](https://github.com/NVIDIA/flownet2-pytorch) and [Cadene](https://github.com/Cadene/pretrained-models.pytorch).
- 
-Our initial models used SyncBN from [Synchronized Batch Norm](https://github.com/zhanghang1989/PyTorch-Encoding) but since then have been ported to [Apex SyncBN](https://github.com/NVIDIA/apex) developed by Jie Jiang.
-
-We would also like to thank Ming-Yu Liu and Peter Kontschieder.
- 
-## Coding style
-* 4 spaces for indentation rather than tabs
-* 100 character line length
-* PEP8 formatting
