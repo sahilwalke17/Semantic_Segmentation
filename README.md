@@ -76,23 +76,4 @@ Now you can zip the `pred` folder and upload to Cityscapes leaderboard. For the 
 At this point, you can already achieve top performance on Cityscapes benchmark (83+ mIoU). In order to further boost the segmentation performance, we can use the augmented dataset to help model's generalization capibility. 
 
 
-<table class="tg">
-  <tr>
-    <th class="tg-t2cw">Model Name</th>
-    <th class="tg-t2cw">Mean IOU</th>
-    <th class="tg-t2cw">Training Time</th>
-  </tr>
-  <tr>
-    <td class="tg-rg0h">DeepWV3Plus(no sdc-aug)</td>
-    <td class="tg-rg0h">81.4</td>
-    <td class="tg-rg0h">~14 hrs</td>
-  </tr>
-  <tr>
-    <td class="tg-rg0h">DeepSRNX50V3PlusD_m1(no sdc-aug)</td>
-    <td class="tg-rg0h">80.0</td>
-    <td class="tg-rg0h">~9 hrs</td>
-  </tr>
-</table>
-
-
 
