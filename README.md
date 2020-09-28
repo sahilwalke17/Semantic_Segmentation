@@ -74,6 +74,8 @@ For submitting to Cityscapes benchmark, we change it to multi-scale setting.
 Now you can zip the `pred` folder and upload to Cityscapes leaderboard. For the test submission, there is nothing in the `diff` folder because we don't have ground truth. 
 
 At this point, you can already achieve top performance on Cityscapes benchmark (83+ mIoU). In order to further boost the segmentation performance, we can use the augmented dataset to help model's generalization capibility. 
+## For pixel percentage
+The file Pixel_percentage.py can be used for individual pixel percents by feeding a segmented image(changing the input datapath in the file) and running the python file.
 
 
 
